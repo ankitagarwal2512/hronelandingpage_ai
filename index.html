@@ -1544,18 +1544,12 @@
   z-index:2;
 ">
 
-  <!-- Giant wordmark — JS fits to 100% width, parallax via translateY -->
+  <!-- Wordmark image — constrained to page container width -->
   <div style="padding:56px 0 0;overflow:hidden;user-select:none;pointer-events:none;">
-    <span id="brand-wordmark" style="
-      display:block;
-      text-align:center;
-      white-space:nowrap;
-      font-weight:900;
-      letter-spacing:-.05em;
-      line-height:.84;
-      color:rgba(11,92,53,.58);
-      will-change:transform;
-    ">HROne</span>
+    <div style="max-width:1200px;margin:0 auto;padding:0 28px;">
+      <img id="brand-wordmark" src="text.png" alt="HROne"
+        style="display:block;width:100%;height:auto;opacity:.5;" />
+    </div>
   </div>
 
   <!-- Copyright centred below the wordmark -->
@@ -1800,17 +1794,7 @@
     var wordmark = document.getElementById('brand-wordmark');
     if (!section || !wordmark) return;
 
-    // Fit wordmark to exact container width
-    function fitText() {
-      wordmark.style.fontSize = '200px';
-      var textW = wordmark.scrollWidth;
-      var contW = section.offsetWidth;
-      if (textW > 0) wordmark.style.fontSize = Math.floor(200 * contW / textW) + 'px';
-    }
-    fitText();
-    window.addEventListener('resize', fitText, { passive: true });
-
-    // Parallax: text rises as section enters viewport (no translateX needed — centered via text-align)
+    // Parallax: image rises as section enters viewport
     function tick() {
       var rect     = section.getBoundingClientRect();
       var vh       = window.innerHeight;
